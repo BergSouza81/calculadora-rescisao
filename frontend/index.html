@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Calculadora de Rescisão</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  </head>
+  <body class="bg-white font-sans">
+    <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+      <div class="layout-container flex h-full grow flex-col">
+        <header class="flex items-center justify-between border-b px-6 py-4">
+          <div class="flex items-center gap-4 text-[#101418]">
+            <div class="w-8 h-8">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0799 24L4 19.2479L9.95537 8.75216L18.04 13.4961L18.0446 4H29.9554L29.96 13.4961L38.0446 8.75216L44 19.2479L35.92 24L44 28.7521L38.0446 39.2479L29.96 34.5039L29.9554 44H18.0446L18.04 34.5039L9.95537 39.2479L4 28.7521L12.0799 24Z" fill="currentColor"></path>
+              </svg>
+            </div>
+            <h1 class="text-lg font-bold">Calculadora de Rescisão</h1>
+          </div>
+          <div class="flex items-center gap-6">
+            <nav class="hidden md:flex gap-6">
+              <a class="text-sm font-medium" href="#">Início</a>
+              <a class="text-sm font-medium" href="#">Serviços</a>
+              <a class="text-sm font-medium" href="#">Contato</a>
+            </nav>
+            <button class="rounded-xl bg-[#007dfa] text-white px-4 py-2 font-bold hover:bg-[#0056b3] transition-colors">CDM</button>
+          </div>
+        </header>
+
+        <main class="flex flex-1 px-6 py-8 gap-6 md:flex-row flex-col">
+          <!-- Form -->
+          <section class="w-full md:w-80">
+            <div class="bg-white rounded-xl p-4 shadow-sm border">
+              <h2 class="text-2xl font-bold mb-4">Dados do Empregado</h2>
+              <form id="calculadoraForm">
+                <div class="mb-4">
+                  <label class="block text-sm font-medium mb-2">Salário Base (R$)</label>
+                  <input id="salario" type="number" step="0.01" min="0" required class="w-full rounded-xl bg-gray-100 p-4 text-base" placeholder="Ex: 2500.00" />
+                </div>
+
+                <div class="grid grid-cols-1 gap-4 md:grid-cols-2 mb-4">
+                  <div>
+                    <label class="block text-sm font-medium mb-2">Data de Admissão</label>
+                    <input id="dataAdmissao" type="date" required class="w-full rounded-xl bg-gray-100 p-3 text-base" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium mb-2">Data de Demissão</label>
+                    <input id="dataDemissao" type="date" required class="w-full rounded-xl bg-gray-100 p-3 text-base" />
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label class="block text-sm font-medium mb-2">Motivo da Rescisão</label>
+                  <select id="motivo" required class="w-full rounded-xl bg-gray-100 p-3 text-base">
+                    <option value="">Selecione...</option>
+                    <option value="pedido-demissao">Pedido de Demissão</option>
+                    <option value="demissao-sem-justa-causa">Demissão sem Justa Causa</option>
+                    <option value="demissao-com-justa-causa">Demissão com Justa Causa</option>
+                    <option value="termino-contrato">Término de Contrato</option>
+                    <option value="culpa-reciproca">Culpa Recíproca</option>
+                    <option value="rescisao-indireta">Rescisão Indireta</option>
+                  </select>
+                </div>
+
+                <div class="mb-4">
+                  <label class="block text-sm font-medium mb-2">Aviso Prévio</label>
+                  <select id="avisoPrevio" required class="w-full rounded-xl bg-gray-100 p-3 text-base">
+                    <option value="indenizado">Indenizado</option>
+                    <option value="trabalhado">Trabalhado</option>
+                  </select>
+                </div>
+
+                <div class="mb-4 flex items-center gap-3">
+                  <input id="isPcd" type="checkbox" class="h-4 w-4" />
+                  <label class="text-sm font-medium">Pessoa com Deficiência (PCD)</label>
+                </div>
+
+                <div class="mb-4">
+                  <h3 class="text-base font-semibold mb-2">Horas Extras (últimos 12 meses)</h3>
+                  <div id="horasExtrasContainer" class="space-y-2"></div>
+                  <div class="mt-2">
+                    <button id="addHoraExtra" type="button" class="rounded-xl bg-gray-100 px-3 py-2">Adicionar Hora Extra</button>
+                  </div>
+                </div>
+
+                <div class="flex gap-2">
+                  <button type="submit" class="flex-1 rounded-xl bg-blue-600 text-white py-3 font-bold">Calcular</button>
+                  <button type="reset" class="flex-1 rounded-xl bg-gray-200 py-3">Limpar</button>
+                </div>
+              </form>
+            </div>
+          </section>
+
+          <!-- Results -->
+          <section id="resultsSection" class="flex-1">
+            <div class="bg-white rounded-xl p-4 shadow-sm border">
+              <h2 class="text-2xl font-bold mb-4">Resultados</h2>
+              <div id="resultados" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+              <div class="mt-4">
+                <button id="voltarForm" class="rounded-xl bg-gray-200 px-4 py-2">Voltar</button>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

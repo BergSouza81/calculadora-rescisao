@@ -1,0 +1,288 @@
+:root {
+    /* Cores principais com melhor contraste para acessibilidade */
+    --primary-color: #1a73e8; /* Azul Google - melhor contraste */
+    --primary-hover: #1557b0;
+    --secondary-color: #5f6368; /* Cinza Google - mais suave */
+    --background-color: #f8f9fa;
+    --card-background: #ffffff;
+    --text-color: #202124; /* Melhor contraste para leitura */
+    --light-text-color: #5f6368;
+    --border-color: #dadce0;
+    --success-color: #0f9d58; /* Verde Google */
+    --danger-color: #d93025; /* Vermelho Google */
+    --focus-color: rgba(26, 115, 232, 0.2); /* Para outline de foco */
+    
+    /* Espaçamento e layout */
+    --spacing-unit: 1rem;
+    --border-radius: 8px;
+    --transition-speed: 0.2s;
+    --shadow-light: 0 2px 6px rgba(60, 64, 67, 0.15);
+    --shadow-hover: 0 4px 12px rgba(60, 64, 67, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Google Sans', 'Segoe UI', Roboto, Arial, sans-serif;
+    line-height: 1.6;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 20px;
+    width: 100%;
+    flex: 1;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: var(--border-radius);
+}
+
+header h1 {
+    margin-bottom: 10px;
+}
+
+section {
+    background-color: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+input[type="number"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    color: var(--text-color);
+    background-color: var(--card-background);
+    transition: all var(--transition-speed) ease;
+}
+
+input[type="number"]:hover,
+input[type="date"]:hover,
+select:hover {
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-light);
+}
+
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--focus-color);
+}
+
+/* Melhor feedback visual para campos inválidos */
+input:invalid,
+select:invalid {
+    border-color: var(--danger-color);
+}
+
+/* Melhor visibilidade para placeholder */
+::placeholder {
+    color: var(--light-text-color);
+    opacity: 0.7;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox input {
+    width: 20px;
+    height: 20px;
+}
+
+.horas-extras {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: var(--border-radius);
+}
+
+.hora-extra-item {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: var(--border-radius);
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #95a5a6;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+.btn-secondary:hover {
+    background-color: #7f8c8d;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    margin-top: 30px;
+}
+
+.resultados-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.resultado-item {
+    background-color: var(--card-background);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--border-color);
+    transition: all var(--transition-speed) ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.resultado-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background-color: var(--primary-color);
+    opacity: 0.7;
+}
+
+.resultado-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.resultado-item h3 {
+    color: var(--text-color);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.resultado-valor {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.resultado-item.total-geral {
+    grid-column: 1 / -1;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.resultado-item.total-geral::before {
+    background-color: var(--success-color);
+}
+
+.resultado-item.total-geral h3,
+.resultado-item.total-geral .resultado-valor {
+    color: white;
+}
+
+.resultado-item.total-geral .resultado-valor {
+    font-size: 2rem;
+}
+
+.resultado-item h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.resultado-valor {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.total-geral {
+    grid-column: 1 / -1;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    section {
+        padding: 20px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+    }
+}
