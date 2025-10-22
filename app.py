@@ -4,16 +4,14 @@ from calculo import CalculadoraTrabalhista
 import os
 
 # Configuração do diretório de arquivos estáticos
-STATIC_FOLDER = os.path.join(os.path.dirname(
-    os.path.abspath(__file__)), 'frontend')
-app = Flask(__name__, static_folder=STATIC_FOLDER, static_url_path='')
+app = Flask(__name__, static_folder='static', static_url_path='/static')
 CORS(app)
 
 
 @app.route('/')
 def home():
     try:
-        return send_from_directory(STATIC_FOLDER, 'index.html')
+        return send_from_directory('static', 'index.html')
     except Exception as e:
         app.logger.error(f"Erro ao servir index.html: {str(e)}")
         return jsonify({
@@ -22,8 +20,8 @@ def home():
         })
 
 
-@app.route('/api/calcular', methods=['POST'])
-def calcular():
+@app.route('/api/calcular_rescisao', methods=['POST'])
+def calcular_rescisao():
     dados = request.get_json()
     if not dados:
         return jsonify({
@@ -31,8 +29,25 @@ def calcular():
             'erro': 'Dados não foram fornecidos. Por favor, preencha todos os campos obrigatórios.'
         }), 400
 
-    resultado = CalculadoraTrabalhista.calcular_rescisao_completa(dados)
-    return jsonify(resultado)
+    try:
+        resultado = CalculadoraTrabalhista.calcular_rescisao_completa(dados)
+        return jsonify({
+            'sucesso': True,
+            'saldo_salario': resultado.get('saldo_salario', 0),
+            'aviso_previo': resultado.get('aviso_previo', 0),
+            'ferias_proporcionais': resultado.get('ferias_proporcionais', 0),
+            'ferias_vencidas': resultado.get('ferias_vencidas', 0),
+            'decimo_terceiro': resultado.get('decimo_terceiro', 0),
+            'multa_fgts': resultado.get('multa_fgts', 0),
+            'total_descontos': resultado.get('total_descontos', 0),
+            'total_liquido': resultado.get('total_liquido', 0)
+        })
+    except Exception as e:
+        app.logger.error(f"Erro ao calcular rescisão: {str(e)}")
+        return jsonify({
+            'sucesso': False,
+            'erro': 'Erro ao calcular rescisão. Por favor, verifique os dados e tente novamente.'
+        }), 500
 
 
 if __name__ == '__main__':

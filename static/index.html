@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Calculadora de Rescisão</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="/static/script.js"></script>
+  </head>
+  <body class="bg-white font-sans">
+    <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+      <div class="layout-container flex h-full grow flex-col">
+        <header class="flex items-center justify-between border-b px-6 py-4">
+          <div class="flex items-center gap-4 text-[#101418]">
+            <div class="w-8 h-8">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0799 24L4 19.2479L9.95537 8.75216L18.04 13.4961L18.0446 4H29.9554L29.96 13.4961L38.0446 8.75216L44 19.2479L35.92 24L44 28.7521L38.0446 39.2479L29.96 34.5039L29.9554 44H18.0446L18.04 34.5039L9.95537 39.2479L4 28.7521L12.0799 24Z" fill="currentColor"></path>
+              </svg>
+            </div>
+            <h1 class="text-lg font-bold">Calculadora de Rescisão</h1>
+          </div>
+        </header>
+        
+        <main class="flex-1 p-6">
+          <div id="formSection">
+            <form id="calculadoraForm" class="space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="form-group">
+                  <label for="salario">Salário Base (R$)</label>
+                  <input type="number" id="salario" name="salario" required step="0.01" min="0">
+                </div>
+                
+                <div class="form-group">
+                  <label for="dataAdmissao">Data de Admissão</label>
+                  <input type="date" id="dataAdmissao" name="dataAdmissao" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="dataDemissao">Data de Demissão</label>
+                  <input type="date" id="dataDemissao" name="dataDemissao" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="motivoDemissao">Motivo da Demissão</label>
+                  <select id="motivoDemissao" name="motivoDemissao" required>
+                    <option value="">Selecione...</option>
+                    <option value="sem_justa_causa">Sem Justa Causa</option>
+                    <option value="com_justa_causa">Com Justa Causa</option>
+                    <option value="pedido_demissao">Pedido de Demissão</option>
+                    <option value="comum_acordo">Comum Acordo</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="space-y-4">
+                <div class="flex items-center">
+                  <input type="checkbox" id="feriasVencidas" name="feriasVencidas">
+                  <label for="feriasVencidas" class="ml-2">Possui férias vencidas</label>
+                </div>
+              </div>
+              
+              <div id="horasExtrasSection" class="space-y-4">
+                <h3 class="text-lg font-semibold">Verbas Variáveis (Horas Extras, Comissões, etc.)</h3>
+                <div id="horasExtrasContainer"></div>
+                <button type="button" id="addHoraExtra" class="btn-secondary">
+                  Adicionar Mês
+                </button>
+              </div>
+              
+              <button type="submit" class="btn-primary">
+                Calcular Rescisão
+              </button>
+            </form>
+          </div>
+          
+          <div id="resultsSection" style="display: none;">
+            <div class="bg-white rounded-lg shadow p-6">
+              <h2 class="text-xl font-bold mb-4">Resultado do Cálculo</h2>
+              <div id="resultados" class="space-y-3"></div>
+              <div class="mt-6 flex gap-4">
+                <button id="voltarForm" class="btn-secondary">
+                  Voltar
+                </button>
+                <button id="imprimirResultado" class="btn-primary">
+                  Imprimir
+                </button>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
