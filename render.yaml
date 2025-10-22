@@ -2,8 +2,13 @@ services:
   - type: web
     name: calculadora-rescisao
     runtime: python
-    buildCommand: pip install -r requirements.txt
+    buildCommand: |
+      pip install -r requirements.txt
+      cp -r frontend /opt/render/project/src/
     startCommand: gunicorn app:app
     envVars:
       - key: PYTHON_VERSION
         value: 3.14.0
+      - key: FLASK_ENV
+        value: production
+    staticPublishPath: ./frontend

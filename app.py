@@ -3,14 +3,23 @@ from flask_cors import CORS
 from calculo import CalculadoraTrabalhista
 import os
 
-# Serve frontend static files from the "frontend" folder
-app = Flask(__name__, static_folder='frontend', static_url_path='/')
+# Configuração do diretório de arquivos estáticos
+STATIC_FOLDER = os.path.join(os.path.dirname(
+    os.path.abspath(__file__)), 'frontend')
+app = Flask(__name__, static_folder=STATIC_FOLDER, static_url_path='')
 CORS(app)
 
 
 @app.route('/')
 def home():
-    return send_from_directory('frontend', 'index.html')
+    try:
+        return send_from_directory(STATIC_FOLDER, 'index.html')
+    except Exception as e:
+        app.logger.error(f"Erro ao servir index.html: {str(e)}")
+        return jsonify({
+            'status': 'erro',
+            'mensagem': 'Erro ao carregar a página inicial. Por favor, tente novamente.'
+        })
 
 
 @app.route('/api/calcular', methods=['POST'])
