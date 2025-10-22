@@ -24,6 +24,7 @@ loadingOverlay.innerHTML = '<div class="loading-spinner"></div>';
 document.body.appendChild(loadingOverlay);
 
 // Funções de utilidade
+// Formata valores monetários no padrão brasileiro (R$)
 const formatMoney = (value) => {
     return new Intl.NumberFormat('pt-BR', {
         style: 'currency',

@@ -19,7 +19,7 @@ def calcular():
     if not dados:
         return jsonify({
             'sucesso': False,
-            'erro': 'Dados não fornecidos'
+            'erro': 'Dados não foram fornecidos. Por favor, preencha todos os campos obrigatórios.'
         }), 400
 
     resultado = CalculadoraTrabalhista.calcular_rescisao_completa(dados)
